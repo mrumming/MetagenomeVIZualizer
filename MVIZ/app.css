@@ -1,0 +1,143 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+/* Style von Labeln angepasst */
+.label {
+    background: #DDD; 
+    color: darkslategrey;
+    font: inherit; 
+    font-size: smaller; 
+    text-shadow: 0 1px 0 #fff; 
+    margin-left:5px;
+    margin-bottom:5px;
+    margin-top:5px;
+    padding:5px 10px;
+    line-height:1.5;
+    border-radius:3px;
+}
+
+.badge {
+    line-height: 0.7;
+    background-color: #323232;
+}
+
+/*
+  We're using CSS transitions for when
+  the enter and move events are triggered
+  for the element that has the .repeated-item
+  class
+*/
+.repeated-item.ng-enter, .repeated-item.ng-move {
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+
+/*
+ The ng-enter-active and ng-move-active
+ are where the transition destination properties
+ are set so that the animation knows what to
+ animate.
+*/
+.repeated-item.ng-enter.ng-enter-active,
+.repeated-item.ng-move.ng-move-active {
+  opacity: 1;
+}
+
+/*
+  We're using CSS keyframe animations for when
+  the leave event is triggered for the element
+  that has the .repeated-item class
+*/
+.repeated-item.ng-leave {
+  animation: 0.5s my_animation;
+}
+
+@keyframes my_animation {
+  from { opacity:1; }
+  to { opacity:0; }
+}
+
+/*
+  Highlight fuer den gerade ausgewaehlten graphpanel.
+*/
+.activeGraphPanel {
+    border: 2px solid /*c4*/#5ca4a9 !important;
+}
+
+.activeGraphPanelLabel {
+    border: 2px solid /*c4*/#5ca4a9 !important;
+    border-bottom: 0px !important;
+}
+
+.activeGraphPanelEditButton {
+    border: 1px solid /*c4*/#5ca4a9 !important;
+    text-shadow: 1px 1px 3px lightsteelblue !important;
+}
+
+/*
+ Label fuer das graphpanel.
+*/
+.graphPanelLabel {
+    border: 1px solid #ddd; 
+    background-image: linear-gradient(to bottom, #e8e8e8 0, #f5f5f5 100%);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0; 
+    border-bottom: 0px;
+}
+
+.piechart-align {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.single-plot-panel {
+    border: 4px solid lightgray;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+    border-radius: 0;
+}
+
+#preferences-trashhold-label {
+    color: darkslategrey !important;
+    text-shadow: 0 1px 0 #fff !important;
+    background: #DDD !important;
+    cursor: default;
+    opacity: 100;
+}
+
+/* COLORS:
+c1  #ed6a5a; //rgba(237, 106, 90, 100)
+c2  #f4f1bb; //rgba(244, 241, 187, 100)
+c3  #9bc1bc; //rgba(155, 193, 188, 100)
+c4  #5ca4a9; //rgba(92, 164, 169, 100)
+c5  #e6ebe0; //rgba(230, 235, 224, 100)
+*/
