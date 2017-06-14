@@ -1,0 +1,12 @@
+<div class="row" id="graph_legend">
+    <div style="line-height: 19px" class="col-lg-2 col-md-2 col-sm-3 col-sx-6" ng-repeat="(label, selected) in cntrl.labels[0]">
+        <span 
+            style="cursor: pointer" 
+            ng-click=" cntrl.lservice.toggleLabel(label) ">
+            <span style="text-shadow: 0px 1px 0px #000; font-size: 25px; color: {{ cntrl.getLabelColor(label) }};position: relative; top: 2px">
+                &#9679;
+            </span>
+            <span style="font-size: smaller"> 
+                {{ label | limittext:10 }}</span></span>
+    </div>
+</div>

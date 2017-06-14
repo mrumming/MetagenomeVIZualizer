@@ -1,0 +1,51 @@
+<div class="panel panel-default" ng-repeat="(metagenome, metainfo) in cntrl.metaData[0]">
+    <div class="panel-heading">
+        <div>
+            <button type="button" class="btn btn-default btn-sm" 
+                    ng-init="isMetaUncollapsed[metagenome] = false" 
+                    ng-model="isMetaUncollapsed[metagenome]" 
+                    uib-btn-radio="true" uncheckable="true">
+                
+                <span class="glyphicon glyphicon-eye-open"></span>
+            </button>
+            <button type="button" class="btn btn-default btn-sm" 
+                    ng-click="cntrl.selectAll(metagenome)" uncheckable="true">
+                add all
+            </button>
+            <span class="label label-lg label-default">
+                Samples: <span class="badge" style="text-shadow: 0px 0px 0px #000;">
+                    {{ metainfo.sampleCnt | humanize }}</span></span>
+            <span class="label label-lg label-default">
+                Genomes: <span class="badge" style="text-shadow: 0px 0px 0px #000;">
+                    {{ metainfo.genomes | humanize }}</span></span>
+            <span class="label label-lg label-default">
+                Type: {{ metainfo.profile_type | limittext:20 }}</span>   
+            <span class="label label-lg label-default">Name: {{ metainfo.name | limittext:20 }}</span>
+        </div>
+    </div>
+    <div class="panel-body" uib-collapse="!isMetaUncollapsed[metagenome]">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th># Genomes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(sampleId, sampleinfo) in metainfo.samples">
+                    <td>
+                        <button type="button" 
+                                class="btn btn-default btn-sm" 
+                                ng-click="cntrl.colservice.toggleSample(sampleId, metagenome);" 
+                                ng-model="cntrl.selected[cntrl.colservice.getCurrDataCollection()][metagenome][sampleId]" 
+                                uib-btn-radio="true" uncheckable="true">
+                            add</button>
+                    </td>
+                    <td>{{ sampleId }}</td>
+                    <td>{{ sampleinfo.genomes }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

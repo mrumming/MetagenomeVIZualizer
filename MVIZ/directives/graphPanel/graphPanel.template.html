@@ -1,0 +1,158 @@
+<div id="{{ cntrl.divId}}" class="graphplot">
+    <span ng-hide="cntrl.labelEditEnabled" 
+          ng-click="cntrl.labelEditEnabled = true"
+          class="label label-lg label-default graphPanelLabel"  
+          ng-class="{ activeGraphPanelLabel: cntrl.isDataCollectionActive }">
+        {{ cntrl.labelText}}</span>
+
+    <div ng-show="cntrl.labelEditEnabled" class="no-png">
+        <input 
+            ng-model="cntrl.labelText" 
+            ng-show="cntrl.labelEditEnabled"/>
+        <a style="cursor: pointer" ng-click="cntrl.saveLabel()">Save</a>
+    </div>
+
+    <div class="panel panel-default sample-show-hide" 
+         ng-class="{ activeGraphPanel: cntrl.isDataCollectionActive }">
+
+        <div class="panel-heading">
+            <div class="btn-group no-png">
+                <button type="button" class="btn btn-default btn-sm" 
+                        ng-model="cntrl.isUncollapsed" 
+                        uib-btn-radio="true" uncheckable="true">
+                    <span class="glyphicon glyphicon-eye-open"></span>
+                </button>
+                <button id="single-button" 
+                        ng-click="cntrl.service.moveCollectionUp(cntrl.collectionId)" 
+                        ng-disabled="disabled"
+                        type="button" class="btn btn-default btn-sm" >
+                    &#9650;
+                </button>
+                <button id="single-button" 
+                        ng-click="cntrl.service.moveCollectionDown(cntrl.collectionId)" 
+                        type="button" class="btn btn-default btn-sm" 
+                        ng-disabled="disabled">
+                    &#9660;
+                </button>
+            </div>
+            <div class="btn-group no-png">
+                <button type="button" class="btn btn-default btn-sm" 
+                        ng-model="cntrl.isDataCollectionActive" 
+                        ng-click="cntrl.activateDataCollection()" 
+                        ng-class="{ activeGraphPanelEditButton: cntrl.isDataCollectionActive }" 
+                        uib-btn-radio="true">
+
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" 
+                        ng-click="cntrl.service.removeDataCollection(cntrl.collectionId)" 
+                        ng-disabled="disabled"
+                        uib-dropdown-toggle="true">
+
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm no-png" 
+                        ng-click="cntrl.export()">
+
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-sm" 
+                        ng-click="cntrl.rawinf()" 
+                        ng-model="cntrl.rawinfRadioModel" 
+                        uib-btn-radio="'raw'">raw</button>
+                <button type="button" class="btn btn-default btn-sm" 
+                        ng-click="cntrl.rawinf()" 
+                        ng-model="cntrl.rawinfRadioModel" 
+                        uib-btn-radio="'inferred'">inferred</button>
+            </div>
+
+            <span class="label label-lg label-default">
+                Metagenomes: <span class="badge" style="text-shadow: 0px 0px 0px #000;">
+                    {{ cntrl.collectionMetadata[0].metagenomes || 0 }}</span></span>
+            <span class="label label-lg label-default">
+                Samples:<span class="badge" style="text-shadow: 0px 0px 0px #000;">
+                    {{ cntrl.collectionMetadata[0].samples || 0 }}</span></span>
+            <span class="label label-lg label-default">
+                Genomes: <span class="badge" style="text-shadow: 0px 0px 0px #000;">
+                    {{ (cntrl.collectionMetadata[0].genomes || 0) | humanize}}</span></span>
+        </div>
+
+        <div ng-switch="cntrl.ngSwitchModel">
+            <div class="panel-body" 
+                 uib-collapse="!cntrl.isUncollapsed" 
+                 ng-switch-when="combined__raw_pie_or_*_bar">
+
+                <nvd3 options='cntrl.graphoptions' data='cntrl.combinedGraphdata'></nvd3>
+            </div>
+
+            <div class="panel-body" 
+                 uib-collapse="!cntrl.isUncollapsed"
+                 ng-switch-when="combined__inf_pie">
+
+                <div  class="col-md-6">
+                    <nvd3 options='cntrl.graphoptions' data='cntrl.combinedGraphdata'></nvd3>
+                </div> 
+                <div  class="col-md-6">
+                    <nvd3 options='cntrl.graphoptions' data='cntrl.combinedGraphdata_inf'></nvd3>
+                </div>
+            </div>
+
+            <div class="panel-body" uib-collapse="!cntrl.isUncollapsed" 
+                 ng-switch-when="single__raw">  
+                <div class="col-md-4 col-sm-6 col-lg-4 panel panel-default single-plot-panel"
+                     ng-repeat="gdata in cntrl.singleGraphdata">
+
+                    <span class="col-md-12" style="margin-top: 10px">
+                        <span class="label label-lg label-default ">
+                            {{gdata.metagenome_name}}</span>
+                        <span class="label label-lg label-default">
+                            {{gdata.sampleId}}</span>
+                    </span>
+                    <span class="col-md-12" style="margin-top: 6px; margin-left: 10px">
+                        <button type="button" 
+                                class="btn btn-default btn-sm no-png" 
+                                ng-click="cntrl.service.removeSample(gdata.sampleId, gdata.metagenome, cntrl.collectionId)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
+                    <span class="piechart-align">
+                        <nvd3 options='cntrl.graphoptions_single' data='gdata.data'></nvd3>
+                    </span>
+                </div>
+            </div>
+
+            <div class="panel-body" uib-collapse="!cntrl.isUncollapsed" 
+                 ng-switch-when="single__inf">
+                <div class="col-md-4 col-sm-6 col-lg-4 panel panel-default single-plot-panel"
+                     ng-repeat="gdata in cntrl.singleGraphdata">
+
+                    <span class="col-md-12" style="margin-top: 10px">
+                        <span class="label label-lg label-default ">
+                            {{gdata.metagenome_name}}</span>
+                        <span class="label label-lg label-default">
+                            {{gdata.sampleId}}</span>
+                    </span>
+                    <span class="col-md-12" style="margin-top: 6px; margin-left: 10px">
+                        <button type="button" 
+                                class="btn btn-default btn-sm no-png" 
+                                ng-click="cntrl.service.removeSample(gdata.sampleId, gdata.metagenome, cntrl.collectionId)">
+
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
+
+                    <span class="piechart-align">
+                        <nvd3 options='cntrl.graphoptions_single' data='gdata.data'></nvd3>
+                    </span>
+
+                    <span class="piechart-align">
+                        <nvd3 options='cntrl.graphoptions_single' data='gdata.data_inf'></nvd3>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

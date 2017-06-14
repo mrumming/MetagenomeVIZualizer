@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="github-pandoc.css" type="text/css" />
+  <div id="header">
+    <h1>Help Page: MetagenomeVIZualizer</h1>
+  </div>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#application-structure">Application Structure</a><ul>
+<li><a href="#selection-table">Selection Table</a></li>
+<li><a href="#preferences-panel">Preferences Panel</a></li>
+<li><a href="#plot-panel">Plot Panel</a></li>
+</ul></li>
+<li><a href="#application-setup">Application Setup</a><ul>
+<li><a href="#how-to-run-the-application">How to run the application</a></li>
+<li><a href="#how-to-load-data">How to load data</a></li>
+</ul></li>
+<li><a href="#faq">FAQ:</a></li>
+</ul>
+</div>
+<h2 id="introduction"><a href="#introduction">Introduction</a></h2>
+<p>The MetagenomeVIZualizer web application is part of the <em>MetaStone</em> project (for more information on the <em>MetaStone</em> project visit <a href="https://github.com/mrumming/MetaStonePhenoPointer">github:MetaStone</a>). The Vizualizer shows (meta)information of your data as charts in order to enable comparisons. After selecting arbitrary collections (subsets) of your data (with samples as smallest selectable units), you are able to select the context by choosing a characteristical group and a subcharacteristic. Now your data can be visualized based on that context. Different global or plot specific preferences allow the definition of thresholds, switching between visualisations and modes as well as editing of your datasets, exports of plots and more, all in a dynamic way.</p>
+<h2 id="application-structure"><a href="#application-structure">Application Structure</a></h2>
+<p>The application consists of three main parts:</p>
+<ol style="list-style-type: decimal">
+<li>The <strong>Selection Table</strong> for selecting the samples,
+<ul>
+<li>with the <strong>Sample Table</strong>,</li>
+</ul></li>
+<li>the <strong>Preferences Panel</strong> for setting global preferences
+<ul>
+<li>with the <strong>Characteristic Selection</strong>,</li>
+<li><strong>Preferences</strong></li>
+<li>and <strong>Legend</strong>,</li>
+</ul></li>
+<li>the <strong>Plot Panel</strong> for different plots and
+<ul>
+<li>their <strong>Plot Specific Preferences</strong>.</li>
+</ul></li>
+</ol>
+<h3 id="selection-table"><a href="#selection-table">Selection Table</a></h3>
+<div class="figure">
+<img src="doc_images/selection.png" />
+</div>
+<p><em>fig. 1:</em> The selection table with a loaded dataset.</p>
+<p><em>fig. 1</em> shows a dataset with three metagenomes, loaded in the <strong>Selection Table</strong>. Each metagenome is displayed as a seperate element with (from left to right): The option to… * <em>display</em> its samples in the <strong>Sample Table</strong>, * <em>add all samples</em> at once, * display the number of <em>contained samples</em> in the metagenome, * display the number of <em>contained genomes</em> in the metagenome, * display the samples <em>type</em><br />* and finally the <em>name</em> of the metagenome.</p>
+<p>For selecting single samples and for further information on the samples you can toggle the <em>display</em> button in a metagenome element to show the <strong>Sample Table</strong> which is structured as follows:</p>
+<ul>
+<li><em>add</em> the sample,</li>
+<li><em>name</em> of the sample,</li>
+<li><em>number of genomes</em> contained in the sample</li>
+</ul>
+<p>By hitting the <em>add all</em> button or the <em>add</em> button for a single sample, the sample(s) are added to the currently selected <strong>Plot Panel</strong>. For information on how to select/edit a <strong>Plot Panel</strong> go to the section <em>Application Structure &gt; Plot Panel</em>.</p>
+<h3 id="preferences-panel"><a href="#preferences-panel">Preferences Panel</a></h3>
+<p>This panel is responsible for all global operations which effect all available <strong>Plot Panels</strong> and their data collections.</p>
+<div class="figure">
+<img src="doc_images/pref.png" />
+</div>
+<p><em>fig. 2:</em> The Preferences Panel</p>
+<p>Functional groups are marked by numbers in <em>fig. 1</em>. They have the following functions:</p>
+<ol style="list-style-type: decimal">
+<li><p>The dropdown buttons for the <strong>Characteristic Selection</strong>. Note that the characteristics are separated in characteristic-groups and underlaying subcharacteristics. As indicated by the arrow, you have to select the group first and the subcharacteristic afterwards.</p></li>
+<li><strong>Preferences</strong> (from left to right) for</li>
+</ol>
+<ul>
+<li><em>combined</em> or <em>single</em> mode (see section <em>Application Structure &gt; Preferences Panel &gt; Combined or Single Mode</em>),</li>
+<li>selecting the <em>charttype</em> (piechart or barchart),</li>
+<li>applying a <em>threshold</em> (to hide labels with small global amounts),</li>
+<li>activating or disabling <em>labels</em> in all visible plots,</li>
+<li><em>export all</em> creating exports of visible plots with their meta information to an standalone HTML file.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>In the <strong>Legend</strong>, you can deactivate arbitrary labels in all plots through a click.</li>
+</ol>
+<h4 id="combined-or-single-mode"><a href="#combined-or-single-mode">Combined or Single Mode:</a></h4>
+<p>The <em>Combined Mode</em> provides a combined chart with all samples of each <strong>Plot Panels</strong> data collection.</p>
+<p>The <em>Single Mode</em> enables comparisons of single samples within a <strong>Plot Panels</strong> data collection.</p>
+<p>This option is applied globally, so you are able to compare all <strong>Plot Panels</strong> among themselves by one click. This is especially useful if the barchart is selected as all bars of the same label are aligned in one column. If a data collection does not contain data for a label a zero-bar is inserted for saving the alignment.</p>
+<h3 id="plot-panel"><a href="#plot-panel">Plot Panel</a></h3>
+<div class="figure">
+<img src="doc_images/plot.png" />
+</div>
+<p><em>fig.3:</em> The Plot Panel with barchart as <em>charttype</em>, in <em>combined mode</em> and a selected characteristic.</p>
+<p>With the <em>add Plot</em> button right above the <strong>Plot Panels</strong> (not depicted) you can add new plots and make new selections on the data.</p>
+<p>By click on the label of the <strong>Plot Panel</strong> you can edit its name.</p>
+<p>As you can see in <em>fig.3</em> the <strong>Plot Panel</strong> consists of preferences and the plot itself. The <strong>Plot Specific Preferences</strong> are (from left to rigth):</p>
+<ul>
+<li>The <em>display</em> button to show or hide the plot,</li>
+<li>the <em>move</em> arrows for arranging the <strong>Plot Panels</strong> in the desired order,</li>
+<li>the <em>edit</em> button to activate the <strong>Plot Panel</strong> for editing. By hitting this button, the data collection is loaded into the <strong>Selection Table</strong>, where you can see, add and delete the collection samples.</li>
+<li>The <em>delete</em> button deletes the <strong>Plot Panel</strong> and its linked data collection,</li>
+<li>the <em>export</em> button exports the current collection only (as standalone HTML page),</li>
+<li>the <em>raw, inferred</em> buttons for switching between raw and inferred mode,</li>
+<li><em>contained metagenomes</em> to display the metagenomes contained in this collection,</li>
+<li><em>contained samples</em> to display the number of samples contained in this collection,</li>
+<li><em>contained genomes</em> to display the number of genomes contained in this collection</li>
+</ul>
+<h2 id="application-setup"><a href="#application-setup">Application Setup</a></h2>
+<h3 id="how-to-run-the-application"><a href="#how-to-run-the-application">How to run the application</a></h3>
+<p>You can run the application by:</p>
+<ol style="list-style-type: decimal">
+<li>calling a locally deployed installation within your browser</li>
+<li>or a typical deployment on your webserver (depends on your existing setup).</li>
+</ol>
+<h3 id="how-to-load-data"><a href="#how-to-load-data">How to load data</a></h3>
+<p>Data is loaded by the <code>data</code> attribute given to the URL. Note that your data must be ziped and ends with <code>.zip</code>. GZIP is another compression method and is not supported. The name of the archive has to be <code>&lt;filename&gt;.json.zip</code> where <code>&lt;filename&gt;.json</code> is the filename of the dataset contained in the archive.</p>
+<p><strong>Example 1:</strong></p>
+<p>If the application is deployed on your webserver (SSL enabled) within the location “datavisualizer” and your datasets are stored in the “data” directory located in the projects directory:</p>
+<p><code>https://FQDN/datavisualizer/index.html?data=data/mock_infer.json.zip</code></p>
+<p><strong>Example 2:</strong></p>
+<p>If the application is locally deployed and your datasets are stored in the “data” directory located in the MVIZ directory:</p>
+<p><code>file:///Users/mrumming/MVIZ/index.html?data=data/mock_infer.json.zip</code></p>
+<h2 id="faq"><a href="#faq">FAQ:</a></h2>
+<h5 id="how-can-i-compare-the-samples-of-a-collection"><a href="#how-can-i-compare-the-samples-of-a-collection">How can i compare the samples of a collection?</a></h5>
+<p>Activate the <em>single</em> view in the <strong>Preferences Panel</strong>.</p>
+<h4 id="how-can-i-edit-the-underlaying-dataset-for-a-plot"><a href="#how-can-i-edit-the-underlaying-dataset-for-a-plot">How can i edit the underlaying dataset for a plot?</a></h4>
+<p>There are two options: * activate the <em>single</em> view in the <strong>Preferences Panel</strong> and delete the samples from your <em>graph panel</em> (delete only)</p>
+<ul>
+<li>Edit a plot collection by clicking on <em>edit</em> in the <strong>Plot Panel</strong>, the collection is then loaded in the <strong>Selection Table</strong> and you can deselect samples ore add new samples.</li>
+</ul>
+<h5 id="how-can-i-compare-the-raw-versions-of-the-samples-in-a-collection-with-the-inferred-versions-single-mode"><a href="#how-can-i-compare-the-raw-versions-of-the-samples-in-a-collection-with-the-inferred-versions-single-mode">How can i compare the raw versions of the samples in a collection with the inferred versions (single mode)?</a></h5>
+<p>Activate the <em>single</em> view in the <strong>Preferences Panel</strong> and activate the <em>inferred</em> button in the specific <strong>Plot Panel</strong>.</p>
+<h5 id="how-can-i-compare-the-inferred-and-the-raw-version-of-a-data-collection-combined-mode"><a href="#how-can-i-compare-the-inferred-and-the-raw-version-of-a-data-collection-combined-mode">How can i compare the inferred and the raw version of a data collection (combined mode)?</a></h5>
+<p>The best way is to select the same data collection twice, then activate one plot as <em>inferred</em> and the other plot as <em>raw</em> finally activate the <em>barchart</em>.</p>
+<h4 id="there-are-lots-of-bars-and-labels-in-the-plots-i-cannot-see-anything"><a href="#there-are-lots-of-bars-and-labels-in-the-plots-i-cannot-see-anything">There are lots of bars and labels in the plots, i cannot see anything!?</a></h4>
+<p>In that case it is recommended to use the <em>threshold</em> function in the <strong>Preferences Panel</strong> nonrelevant labels will disappear (those with small amounts in the dataset). Note that the threshold functionality is global so if any other plot exceeds the threshold for a specific label, the label remains in the legend and in all barcharts.</p>
+<h4 id="how-can-i-export-the-plots"><a href="#how-can-i-export-the-plots">How can i export the plots?</a></h4>
+<p>Use the export button in the <strong>Preferences Panel</strong> or the export button in the <strong>Plot Panel</strong></p>
+<h4 id="i-need-the-plots-as-pictures-is-that-possible"><a href="#i-need-the-plots-as-pictures-is-that-possible">I need the plots as pictures, is that possible?</a></h4>
+<p>Export the plot(s) as usual, the exported HTML page contains the charts as plain SVG elements. Depending on your browser you can right click and save the SVGs or you are able to copy them from source and paste it to a file (make sure the filename ends with ‘.svg’).</p>
+<hr />
+<p>© 2016 Madis Rumming, Computational Metagenomics, CeBiTec, Bielefeld University, <script type="text/javascript">
+<!--
+h='&#x63;&#x65;&#98;&#x69;&#116;&#x65;&#x63;&#46;&#x75;&#110;&#x69;&#x2d;&#98;&#x69;&#x65;&#108;&#x65;&#102;&#x65;&#108;&#100;&#46;&#100;&#x65;';a='&#64;';n='&#x6d;&#x72;&#x75;&#x6d;&#x6d;&#x69;&#x6e;&#x67;';e=n+a+h;
+document.write('<a h'+'ref'+'="ma'+'ilto'+':'+e+'">'+'mailto:mrumming@cebitec.uni-bielefeld.de'+'<\/'+'a'+'>');
+// -->
+</script><noscript>&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x61;&#110;&#x73;&#x67;&#x61;&#114;&#64;&#x63;&#x65;&#98;&#x69;&#116;&#x65;&#x63;&#46;&#x75;&#110;&#x69;&#x2d;&#98;&#x69;&#x65;&#108;&#x65;&#102;&#x65;&#108;&#100;&#46;&#100;&#x65;&#32;&#40;&#x61;&#110;&#x73;&#x67;&#x61;&#114;&#32;&#x61;&#116;&#32;&#x63;&#x65;&#98;&#x69;&#116;&#x65;&#x63;&#32;&#100;&#x6f;&#116;&#32;&#x75;&#110;&#x69;&#x2d;&#98;&#x69;&#x65;&#108;&#x65;&#102;&#x65;&#108;&#100;&#32;&#100;&#x6f;&#116;&#32;&#100;&#x65;&#x29;</noscript></p>
+</body>
+</html>

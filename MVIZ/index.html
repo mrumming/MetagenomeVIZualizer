@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>MetaStone Interactive Charts</title>
+        <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap.min.css">
+        <link rel="stylesheet" href="bower_components/bootstrap-css/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="bower_components/nvd3/build/nv.d3.css">
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
+        <link rel="stylesheet" href="app.css">
+    </head>
+    <body ng-app="metaStoneCharts">
+        <div ng-controller="MainCntrl as mcntrl">
+
+            <div class="col-lg-offset-1 col-lg-10 col-md-12 col-sm-12">
+                <div ng-cloak class="panel panel-default">
+                    <div class="panel-heading" style="padding: 2px; padding-left: 10px">
+                        <span>
+                            <!--<img style="margin: 0" 
+                                   src="images/metadatavisualizer_logo.svg" 
+                                   height="50px"
+                                   width="50px" /> -->
+                            <span style="font-size: 40px; margin: 0; padding: 0; text-shadow: 1px 1px 1px #000;line-height: 40%;">
+                                <span style="color: #ed6a5a">&#x25B2</span>
+                                <span style="font-size: 55px; color: #5ca4a9; position: relative; top: 4px; left: -13px;">
+                                    &#9679</span>
+                            </span>
+                            <span style="color: #5e5e5e; text-shadow: 2px 2px 3px #fff;font-size: 21px;">MetagenomeVIZualizer</span>
+                        </span>
+                        
+                        <span style="float: right; margin: 5px; position: relative; top: 4px;">
+                            <span style="margin: 5px; margin-right: 17px;">
+                                <a href="mailto:mrumming@cebitec.uni-bielefeld.de">Contact</a>
+                            </span>
+                            <span style="margin: 5px; margin-right: 17px;">
+                                <a href="help_page/doc.html" target="_blank">Help</a>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div ng-cloak ng-show="mcntrl.dataFailed" class="alert alert-danger" role="alert">{{mcntrl.failedMsg}}</div>
+                
+                <selection-table></selection-table>
+
+                <pref-panel></pref-panel>
+
+                <button ng-cloak ng-show="mcntrl.prefs.data_loaded" type="button" class="btn btn-default btn-sm" ng-click="mcntrl.service.addDataCollection()" style="margin-top: 0px; margin-bottom: 10px;">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true" style="padding-right: 5px; line-height:1.5;"></span>
+                    new plot
+                </button> 
+
+                <div ng-init="mcntrl.service.addDataCollection()"></div>
+
+                <div ng-repeat="collection in mcntrl.service.getDataCollectionIds()" class="repeated-item">
+                    <graph-panel datacollectionid="collection"></graph-panel>
+                </div>
+                
+            </div>
+        </div>
+        
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-route/angular-route.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+        <script src="bower_components/d3/d3.min.js"></script>
+        <script src="bower_components/nvd3/build/nv.d3.min.js"></script>
+        <script src="bower_components/angular-nvd3/dist/angular-nvd3.js"></script>
+        <script src="bower_components/jszip/dist/jszip.js"></script>
+        <script src="bower_components/jszip-utils/dist/jszip-utils.js"></script>
+        <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+        <script src="bower_components/colorbrewer/colorbrewer.js"></script>
+        <script src="bower_components/angular-file-saver/dist/angular-file-saver.bundle.min.js"></script>
+        <script src="bower_components/blob-polyfill/Blob.js"></script>
+        <script src="main.js"></script>
+        <script src="controller/main.controller.js"></script>
+        <script src="services/data.service.js"></script>
+        <script src="services/collection.service.js"></script>
+        <script src="services/msg.service.js"></script>
+        <script src="services/pref.service.js"></script>
+        <script src="services/characteristic.service.js"></script>
+        <script src="services/graph.service.js"></script>
+        <script src="services/color.service.js"></script>
+        <script src="services/metadata.service.js"></script>
+        <script src="services/label.service.js"></script>
+        <script src="services/progress.service.js"></script>
+        <script src="services/trashhold.service.js"></script>
+        <script src="services/export.service.js"></script>
+        <script src="filters/limittext.filter.js"></script>
+        <script src="filters/humanizenumbers.js"></script>
+        <script src="directives/prefPanel/prefPanel.directive.js"></script>
+        <script src="directives/graphPanel/graphPanel.directive.js"></script>
+        <script src="directives/selectionTable/selectionTable.directive.js"></script>
+        <script src="directives/graphLegend/graphLegend.directive.js"></script>
+    </body>
+</html>
